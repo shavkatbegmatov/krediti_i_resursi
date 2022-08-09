@@ -1,139 +1,213 @@
-create or replace package QQB_RESURS_VAL is
-  procedure prot(iId_res         qqb_hl_resurs_protocol.id_res%type,
-                 iIzox           qqb_hl_resurs_protocol.Izox%type,
-                 iState_id       qqb_hl_resurs_protocol.state_id%type,
-                 iOp_id          number,
-                 iDate_operation qqb_hl_resurs_protocol.date_operation%type);
-  procedure prot_index(iCode           qqb_hl_index_protocol.code%type,
-                       iIzox           qqb_hl_index_protocol.Izox%type,
-                       iState_id       qqb_hl_spr_state_type.id%type,
-                       iCondition_id   qqb_hl_index_protocol.condition_id%type,
-                       iDate_operation qqb_hl_index_protocol.date_operation%type);
-  procedure T3_template(iT2_Id in qqb_hl_spr_submanba.id%type);
-  procedure request_add(REQUEST HASHTABLE);
+CREATE OR REPLACE PACKAGE QQB_RESURS_VAL IS
+	PROCEDURE prot
+	(
+		iId_res         qqb_hl_resurs_protocol.id_res%TYPE
+	   ,iIzox           qqb_hl_resurs_protocol.Izox%TYPE
+	   ,iState_id       qqb_hl_resurs_protocol.state_id%TYPE
+	   ,iOp_id          NUMBER
+	   ,iDate_operation qqb_hl_resurs_protocol.date_operation%TYPE
+	);
+	PROCEDURE prot_index
+	(
+		iCode           qqb_hl_index_protocol.code%TYPE
+	   ,iIzox           qqb_hl_index_protocol.Izox%TYPE
+	   ,iState_id       qqb_hl_spr_state_type.id%TYPE
+	   ,iCondition_id   qqb_hl_index_protocol.condition_id%TYPE
+	   ,iDate_operation qqb_hl_index_protocol.date_operation%TYPE
+	);
+	PROCEDURE T3_template(iT2_Id IN qqb_hl_spr_submanba.id%TYPE);
+	PROCEDURE request_add(REQUEST HASHTABLE);
 
-  procedure sorov_tasdiq(iid           glb_cred_hl_summa.id%type,
-                         iruhsat_state glb_cred_hl_summa.state%type,
-                         isumma        glb_cred_hl_summa.ruhsat_sum%type);
-  procedure attach_dep(REQUEST HASHTABLE);
-  --//manba add
-  procedure manba_add(iName      qqb_hl_spr_manba.name%type,
-                      iRevolver  qqb_hl_spr_manba.revolver%type,
-                      iCondition qqb_hl_spr_manba.condition%type,
-                      oMessage   out varchar2);
-  procedure rad_etish(iid   qqb_hl_resurs.id%type,
-                      iizoh varchar2,
-                      omess out varchar2);
-  PROCEDURE LIBOR_ACTION(IACTION        IN VARCHAR2,
-                         IDATE_VALIDATE IN qqb_hl_s_libors.DATE_VALIDATE%TYPE,
-                         IPERCENT_RATE  IN NUMBER);
-  procedure manba_ed(iCode      qqb_hl_spr_manba.code%type,
-                     iName      qqb_hl_spr_manba.name%type,
-                     iRevolver  qqb_hl_spr_manba.revolver%type,
-                     iCondition qqb_hl_spr_manba.condition%type,
-                     oMessage   out varchar2);
-  procedure manba_active_disactive(iCode qqb_hl_spr_manba.code%type);
-  procedure detail_add(iManbaCode qqb_hl_spr_submanba.manba_code%type,
-                       iName      qqb_hl_spr_submanba.name%type,
-                       iSchet     qqb_hl_spr_submanba.schet%type,
-                       iProc      qqb_hl_spr_submanba.foiz%type,
-                       iType      qqb_hl_spr_submanba.type%type,
-                       iCurr      qqb_hl_spr_submanba.currency%type,
-                       oMessage   out varchar2);
-  procedure detail_ed(iId       qqb_hl_spr_submanba.id%type,
-                      iName     qqb_hl_spr_submanba.name%type,
-                      iSchet    qqb_hl_spr_submanba.schet%type,
-                      iProc     qqb_hl_spr_submanba.foiz%type,
-                      iType     qqb_hl_spr_submanba.type%type,
-                      iCurrency qqb_hl_spr_submanba.currency%type,
-                      oMessage  out varchar2);
-  procedure detail_del(iId qqb_hl_spr_submanba.id%type);
-  procedure index_add(iName      qqb_hl_indexes.name%type,
-                      iCode_type qqb_hl_indexes.code_type%type,
-                      oMessage   out varchar2);
-  procedure index_ed(iId      qqb_hl_indexes.id%type,
-                     iName    qqb_hl_indexes.name%type,
-                     oMessage out varchar2);
-  procedure index_info_add(iIndex_Id   qqb_hl_index_info.index_id%type,
-                           iBegin_date qqb_hl_index_info.begin_date%type,
-                           iEnd_date   qqb_hl_index_info.end_date%type,
-                           iProcent    qqb_hl_index_info.procent%type,
-                           oMessage    out varchar2);
-  procedure index_info_ed(iId         qqb_hl_index_info.id%type,
-                          iBegin_date qqb_hl_index_info.begin_date%type,
-                          iEnd_date   qqb_hl_index_info.end_date%type,
-                          iProcent    qqb_hl_index_info.procent%type,
-                          oMessage    out varchar2);
-  procedure detail_filial_ed(iId           qqb_hl_accounts.t2_id%type,
-                             iFilial       qqb_hl_accounts.filial%type,
-                             iAcc_res_bo   qqb_hl_accounts.acc_res_bo%type,
-                             iAcc_foiz_bo  qqb_hl_accounts.acc_foiz_bo%type,
-                             iAcc_res_fil  qqb_hl_accounts.acc_res_fil%type,
-                             iAcc_foiz_fil qqb_hl_accounts.acc_foiz_fil%type,
-                             oMessage      out varchar2);
-  procedure percent_rate_synch(iIndex_id qqb_hl_indexes.id%type);
-  function is_invalid_date(iId qqb_hl_index_info.id%type) return number;
-  function Get_Sch_Name(iSch accounts.acc_external%type) return varchar2;
-  function get_proc_acc(iMfo accounts.code_filial%type,
-                        iAcc accounts.acc_external%type) return varchar2;
-  function Get_Dep_Name(iDep_id dep_contracts.id%type) return varchar2;
-  function Get_Dep_Name2(iDep_id dep_contracts.id%type) return varchar2;
-  function Get_manba_Name(iZv_id glb_cred_zayav.id%type,
-                          iType  number default 0) return varchar2;
-  function Get_manba_Name1(iCode qqb_hl_spr_manba.code%type) return varchar2;
-  function Get_manba_Name2(iCode qqb_hl_spr_manba.code%type) return varchar2;
-  function Get_manba_Name3(iId qqb_hl_spr_submanba.id%type, iDate date) return varchar2;
-  procedure SendToMain(iId_res qqb_hl_resurs.id%type);
-  procedure generator_graph(iLoan_id                ln_graph_debt.loan_id%type,
-                            iDep_contract_id        dep_contracts.id%type,
-                            IDep_filial_contract_id dep_contracts.id%type);
-  function chek_schedules_graph(iDep_contract_id dep_contracts.id%type)
-    return number;
-  --------------------------------------
-  ----------------Azizbek---------------
-  --------------------------------------
-  Procedure accept(i_submanba_id           number,
-                   i_contract_name         dep_contracts.contract_name%type,
-                   i_contract_number       dep_contracts.contract_number%type,
-                   i_contract_date         varchar2,
-                   i_date_begin            varchar2,
-                   i_date_end              varchar2,
-                   i_percent               DEP_CONTRACTS_PERCENT_RATE.PERCENT_RATE%type,
-                   i_percent_DATE_VALIDATE varchar2,
-                   i_desc_days_in_year     DEP_s_DAYS_IN_YEAR.Code%type,
-                   i_zv_id                 number,
-                   i_resurs_id             qqb_hl_resurs.id%type,
-                   o_Message               out varchar2);
+	PROCEDURE sorov_tasdiq
+	(
+		iid           glb_cred_hl_summa.id%TYPE
+	   ,iruhsat_state glb_cred_hl_summa.state%TYPE
+	   ,isumma        glb_cred_hl_summa.ruhsat_sum%TYPE
+	);
+	PROCEDURE attach_dep(REQUEST HASHTABLE);
+	--//manba add
+	PROCEDURE manba_add
+	(
+		iName      qqb_hl_spr_manba.name%TYPE
+	   ,iRevolver  qqb_hl_spr_manba.revolver%TYPE
+	   ,iCondition qqb_hl_spr_manba.condition%TYPE
+	   ,oMessage   OUT VARCHAR2
+	);
+	PROCEDURE rad_etish
+	(
+		iid   qqb_hl_resurs.id%TYPE
+	   ,iizoh VARCHAR2
+	   ,omess OUT VARCHAR2
+	);
+	PROCEDURE LIBOR_ACTION
+	(
+		IACTION        IN VARCHAR2
+	   ,IDATE_VALIDATE IN qqb_hl_s_libors.DATE_VALIDATE%TYPE
+	   ,IPERCENT_RATE  IN NUMBER
+	);
+	PROCEDURE manba_ed
+	(
+		iCode      qqb_hl_spr_manba.code%TYPE
+	   ,iName      qqb_hl_spr_manba.name%TYPE
+	   ,iRevolver  qqb_hl_spr_manba.revolver%TYPE
+	   ,iCondition qqb_hl_spr_manba.condition%TYPE
+	   ,oMessage   OUT VARCHAR2
+	);
+	PROCEDURE manba_active_disactive(iCode qqb_hl_spr_manba.code%TYPE);
+	PROCEDURE detail_add
+	(
+		iManbaCode qqb_hl_spr_submanba.manba_code%TYPE
+	   ,iName      qqb_hl_spr_submanba.name%TYPE
+	   ,iSchet     qqb_hl_spr_submanba.schet%TYPE
+	   ,iProc      qqb_hl_spr_submanba.foiz%TYPE
+	   ,iType      qqb_hl_spr_submanba.type%TYPE
+	   ,iCurr      qqb_hl_spr_submanba.currency%TYPE
+	   ,oMessage   OUT VARCHAR2
+	);
+	PROCEDURE detail_ed
+	(
+		iId       qqb_hl_spr_submanba.id%TYPE
+	   ,iName     qqb_hl_spr_submanba.name%TYPE
+	   ,iSchet    qqb_hl_spr_submanba.schet%TYPE
+	   ,iProc     qqb_hl_spr_submanba.foiz%TYPE
+	   ,iType     qqb_hl_spr_submanba.type%TYPE
+	   ,iCurrency qqb_hl_spr_submanba.currency%TYPE
+	   ,oMessage  OUT VARCHAR2
+	);
+	PROCEDURE detail_del(iId qqb_hl_spr_submanba.id%TYPE);
+	PROCEDURE index_add
+	(
+		iName      qqb_hl_indexes.name%TYPE
+	   ,iCode_type qqb_hl_indexes.code_type%TYPE
+	   ,oMessage   OUT VARCHAR2
+	);
+	PROCEDURE index_ed
+	(
+		iId      qqb_hl_indexes.id%TYPE
+	   ,iName    qqb_hl_indexes.name%TYPE
+	   ,oMessage OUT VARCHAR2
+	);
+	PROCEDURE index_info_add
+	(
+		iIndex_Id   qqb_hl_index_info.index_id%TYPE
+	   ,iBegin_date qqb_hl_index_info.begin_date%TYPE
+	   ,iEnd_date   qqb_hl_index_info.end_date%TYPE
+	   ,iProcent    qqb_hl_index_info.procent%TYPE
+	   ,oMessage    OUT VARCHAR2
+	);
+	PROCEDURE index_info_ed
+	(
+		iId         qqb_hl_index_info.id%TYPE
+	   ,iBegin_date qqb_hl_index_info.begin_date%TYPE
+	   ,iEnd_date   qqb_hl_index_info.end_date%TYPE
+	   ,iProcent    qqb_hl_index_info.procent%TYPE
+	   ,oMessage    OUT VARCHAR2
+	);
+	PROCEDURE detail_filial_ed
+	(
+		iId           qqb_hl_accounts.t2_id%TYPE
+	   ,iFilial       qqb_hl_accounts.filial%TYPE
+	   ,iAcc_res_bo   qqb_hl_accounts.acc_res_bo%TYPE
+	   ,iAcc_foiz_bo  qqb_hl_accounts.acc_foiz_bo%TYPE
+	   ,iAcc_res_fil  qqb_hl_accounts.acc_res_fil%TYPE
+	   ,iAcc_foiz_fil qqb_hl_accounts.acc_foiz_fil%TYPE
+	   ,oMessage      OUT VARCHAR2
+	);
+	PROCEDURE percent_rate_synch(iIndex_id qqb_hl_indexes.id%TYPE);
+	FUNCTION is_invalid_date(iId qqb_hl_index_info.id%TYPE) RETURN NUMBER;
+	FUNCTION Get_Sch_Name(iSch accounts.acc_external%TYPE) RETURN VARCHAR2;
+	FUNCTION get_proc_acc
+	(
+		iMfo accounts.code_filial%TYPE
+	   ,iAcc accounts.acc_external%TYPE
+	) RETURN VARCHAR2;
+	FUNCTION Get_Dep_Name(iDep_id dep_contracts.id%TYPE) RETURN VARCHAR2;
+	FUNCTION Get_Dep_Name2(iDep_id dep_contracts.id%TYPE) RETURN VARCHAR2;
+	FUNCTION Get_manba_Name
+	(
+		iZv_id glb_cred_zayav.id%TYPE
+	   ,iType  NUMBER DEFAULT 0
+	) RETURN VARCHAR2;
+	FUNCTION Get_manba_Name1(iCode qqb_hl_spr_manba.code%TYPE) RETURN VARCHAR2;
+	FUNCTION Get_manba_Name2(iCode qqb_hl_spr_manba.code%TYPE) RETURN VARCHAR2;
+	FUNCTION Get_manba_Name3
+	(
+		iId   qqb_hl_spr_submanba.id%TYPE
+	   ,iDate DATE
+	) RETURN VARCHAR2;
+	PROCEDURE SendToMain(iId_res qqb_hl_resurs.id%TYPE);
+	PROCEDURE generator_graph
+	(
+		iLoan_id                ln_graph_debt.loan_id%TYPE
+	   ,iDep_contract_id        dep_contracts.id%TYPE
+	   ,IDep_filial_contract_id dep_contracts.id%TYPE
+	);
+	FUNCTION chek_schedules_graph(iDep_contract_id dep_contracts.id%TYPE)
+		RETURN NUMBER;
+	--------------------------------------
+	----------------Azizbek---------------
+	--------------------------------------
+	PROCEDURE accept
+	(
+		i_submanba_id           NUMBER
+	   ,i_contract_name         dep_contracts.contract_name%TYPE
+	   ,i_contract_number       dep_contracts.contract_number%TYPE
+	   ,i_contract_date         VARCHAR2
+	   ,i_date_begin            VARCHAR2
+	   ,i_date_end              VARCHAR2
+	   ,i_percent               DEP_CONTRACTS_PERCENT_RATE.PERCENT_RATE%TYPE
+	   ,i_percent_DATE_VALIDATE VARCHAR2
+	   ,i_desc_days_in_year     DEP_s_DAYS_IN_YEAR.Code%TYPE
+	   ,i_zv_id                 NUMBER
+	   ,i_resurs_id             qqb_hl_resurs.id%TYPE
+	   ,o_Message               OUT VARCHAR2
+	);
 
-  --------------------------------------
-  -----------------Shams----------------
-  --------------------------------------
-  procedure createAccounts(iT2_ID      varchar2,
-                           iFilial     varchar2,
-                           iClientName varchar2,
-                           oCondition  out varchar2,
-                           oDialog     out varchar2,
-                           oMessage    out varchar2);
-  --Nazarox X.A  28.09.2020 h/r biriktirish
-  procedure openBindAcc(iMfo        varchar2,
-                        iSubmanbaId integer,
-                        b_id        dep_contracts.id%type,
-                        f_id        dep_contracts.id%type,
-                        oMessage    out varchar2);
-  --Nazarov X.A 28.09.2020
-  procedure provodka(s_id glb_cred_hl_summa.id%type, oMessage out varchar2);
-  /*Procedure accept_test;*/
-  procedure openBindAcc_TEST(iMfo        varchar2,
-                             iSubmanbaId integer,
-                             b_id        dep_contracts.id%type,
-                             f_id        dep_contracts.id%type,
-                             oMessage    out varchar2,
-                             tartibNo    varchar2);
-----------------------Fozil-----------------------------------------
-  procedure far_add(iSon      qqb_hl_spr_farmoyish.far_numb%type,
-                    iSana     qqb_hl_spr_farmoyish.far_date%type,
-                    oMessage   out varchar2);
-end QQB_RESURS_VAL;
+	--------------------------------------
+	-----------------Shams----------------
+	--------------------------------------
+	PROCEDURE createAccounts
+	(
+		iT2_ID      VARCHAR2
+	   ,iFilial     VARCHAR2
+	   ,iClientName VARCHAR2
+	   ,oCondition  OUT VARCHAR2
+	   ,oDialog     OUT VARCHAR2
+	   ,oMessage    OUT VARCHAR2
+	);
+	--Nazarox X.A  28.09.2020 h/r biriktirish
+	PROCEDURE openBindAcc
+	(
+		iMfo        VARCHAR2
+	   ,iSubmanbaId INTEGER
+	   ,b_id        dep_contracts.id%TYPE
+	   ,f_id        dep_contracts.id%TYPE
+	   ,oMessage    OUT VARCHAR2
+	);
+	--Nazarov X.A 28.09.2020
+	PROCEDURE provodka
+	(
+		s_id     glb_cred_hl_summa.id%TYPE
+	   ,oMessage OUT VARCHAR2
+	);
+	/*Procedure accept_test;*/
+	PROCEDURE openBindAcc_TEST
+	(
+		iMfo        VARCHAR2
+	   ,iSubmanbaId INTEGER
+	   ,b_id        dep_contracts.id%TYPE
+	   ,f_id        dep_contracts.id%TYPE
+	   ,oMessage    OUT VARCHAR2
+	   ,tartibNo    VARCHAR2
+	);
+	----------------------Fozil-----------------------------------------
+	PROCEDURE far_add
+	(
+		iSon     qqb_hl_spr_farmoyish.far_numb%TYPE
+	   ,iSana    qqb_hl_spr_farmoyish.far_date%TYPE
+	   ,oMessage OUT VARCHAR2
+	);
+END QQB_RESURS_VAL;
 /
 CREATE OR REPLACE PACKAGE BODY qqb_resurs_val IS
 	vResId qqb_hl_resurs.id%TYPE;
