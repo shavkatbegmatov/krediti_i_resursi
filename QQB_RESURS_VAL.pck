@@ -160,7 +160,7 @@ create or replace package body qqb_resurs_val is
   vText      qqb_hl_resurs_protocol.text%type;
   vIdxInfRow qqb_hl_index_info%rowtype;
 
-  --//генератор протокола
+  --//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   procedure prot(iId_res         qqb_hl_resurs_protocol.id_res%type,
                  iIzox           qqb_hl_resurs_protocol.Izox%type,
                  iState_id       qqb_hl_resurs_protocol.state_id%type,
@@ -172,7 +172,7 @@ create or replace package body qqb_resurs_val is
     --vEmp_code    := setup.Get_Employee_Code;
     begin
       if iOp_id = 4 then
-        vtext := 'Рад этилди';
+        vtext := 'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ';
       end if;
       insert into qqb_hl_resurs_protocol
         (id_res,
@@ -213,14 +213,14 @@ create or replace package body qqb_resurs_val is
       into vIndexName
       from qqb_hl_spr_proc_type i
      where i.code = iCode;
-    vText := vState_name || ' показатель ' || vIndexName;
+    vText := vState_name || ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ' || vIndexName;
     insert into qqb_hl_index_protocol
       (code, emp_code, date_operation, text, condition_id, izox)
     values
       (iCode, vEmp_code, iDate_operation, vText, iCondition_id, iIzox);
   end prot_index;
 
-  --//T3 шаблон
+  --//T3 пїЅпїЅпїЅпїЅпїЅпїЅ
   procedure T3_template(iT2_Id in qqb_hl_spr_submanba.id%type) is
     vAcc_res_bo   qqb_hl_accounts.acc_res_bo%type := '16102';
     vAcc_foiz_bo  qqb_hl_accounts.acc_foiz_bo%type := '16304';
@@ -257,14 +257,14 @@ create or replace package body qqb_resurs_val is
         end loop;
       else
         Raise_Application_Error(-20000,
-                                'Валюта коди киритилмаган!!!');
+                                'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!');
       end if;
     else
-      Raise_Application_Error(-20000, 'ID йук');
+      Raise_Application_Error(-20000, 'ID пїЅпїЅпїЅ');
     end if;
   end T3_template;
 
-  --//генератор запроса
+  --//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   ------------------------------------______________
   ---__Shaxzod qoshgan___
   --------------------------------------
@@ -292,7 +292,7 @@ create or replace package body qqb_resurs_val is
     vZvId           := request.Get_number('zv_id');
     vId             := request.Get_number('id');
     vSumma_hl       := request.Get_number('summa');
-    vState_id       := 0; --отправлен в ГО
+    vState_id       := 0; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
     vDate_operation := sysdate;
   
     select count(*) into vcount from qqb_hl_resurs a where a.zv_id = vZvId;
@@ -303,14 +303,14 @@ create or replace package body qqb_resurs_val is
        where t.id = vZvId;
       if v_loan_id is null then
         Raise_Application_Error(-20000,
-                                'Кредит бюртмасига loan_id бириктирилмаган?!');
+                                'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ loan_id пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?!');
       end if;
       select t.currency
         into v_currency
         from ln_card t
        where t.loan_id = v_loan_id;
       if v_currency = '000' then
-        Raise_Application_Error(-20000, ' Валюта эмас ?!');
+        Raise_Application_Error(-20000, ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ ?!');
       end if;
       begin
         vResId := qqb_hl_resurs_seq.nextval;
@@ -455,7 +455,7 @@ create or replace package body qqb_resurs_val is
     VSYSDATE := SYSDATE;
   
     IF IDATE_VALIDATE IS NULL THEN
-      VMESSAGE := 'дата киритилмаган';
+      VMESSAGE := 'пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
       RAISE EX;
     END IF;
     BEGIN
@@ -474,7 +474,7 @@ create or replace package body qqb_resurs_val is
         
         EXCEPTION
           WHEN DUP_VAL_ON_INDEX THEN
-            VMESSAGE := 'Киритилган ' ||
+            VMESSAGE := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ' ||
                         TO_CHAR(IDATE_VALIDATE, DEP_CONST.MASKDATE);
             RAISE EX;
         END;
@@ -508,7 +508,7 @@ create or replace package body qqb_resurs_val is
       dep_setting.LIBOR_ACTION(iaction        => IACTION,
                                idate_validate => IDATE_VALIDATE,
                                ipercent_rate  => IPERCENT_RATE);
-      -- LoanId аникланиш керак
+      -- LoanId пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
       /*    fozil_actions.ln_percent_update(iLoanId => ,
                                           iTypeAction => 'OLD' );
       */
@@ -536,7 +536,7 @@ create or replace package body qqb_resurs_val is
   -------------------------------------------------------------------
   ------------------------------------------------------------------
 
-  --//Деп Юр Лиц бириктириш
+  --//пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   procedure attach_dep(REQUEST HASHTABLE) is
   begin
     vResRow.Id            := request.Get_number('res_id');
@@ -821,7 +821,7 @@ create or replace package body qqb_resurs_val is
   
   end percent_rate_synch;
 
-  --//субманбаага тегишли хисоб ракамларни бириктириш
+  --//пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   procedure detail_filial_ed(iId           qqb_hl_accounts.t2_id%type,
                              iFilial       qqb_hl_accounts.filial%type,
                              iAcc_res_bo   qqb_hl_accounts.acc_res_bo%type,
@@ -831,11 +831,11 @@ create or replace package body qqb_resurs_val is
                              oMessage      out varchar2) is
   begin
     if (iAcc_foiz_bo is null) then
-      oMessage := 'Депозит Юр.Лиц. подсистемасида ' || iAcc_res_bo ||
-                  ' ресурс хисоб ракамига фоиз хисоб раками бириктирилмаган!';
+      oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ.пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ' || iAcc_res_bo ||
+                  ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!';
     elsif (iAcc_foiz_fil is null) then
-      oMessage := 'Депозит Юр.Лиц. подсистемасида ' || iAcc_res_fil ||
-                  ' ресурс хисоб ракамига фоиз хисоб раками бириктирилмаган!';
+      oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ.пїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ' || iAcc_res_fil ||
+                  ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!';
     else
       update qqb_hl_accounts r
          set r.acc_res_bo   = iAcc_res_bo,
@@ -847,7 +847,7 @@ create or replace package body qqb_resurs_val is
       oMessage := 'OK';
     end if;
   end detail_filial_ed;
-  --//confirm тасдиклаш
+  --//confirm пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
   procedure confirm(iId_res  in qqb_hl_resurs.id%type,
                     oMessage out varchar2) is
   begin
@@ -858,10 +858,10 @@ create or replace package body qqb_resurs_val is
       from glb_cred_zayav g
      where g.id = vResRow.Zv_Id;
     if vResRow.Summa != vZvRow.Zayav_Summa then
-      oMessage := 'Ресурс суммаси кредит суммасига тенг эмас: ' ||
+      oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: ' ||
                   vResRow.Summa || ' != ' || vZvRow.Zayav_Summa;
     else
-      update qqb_hl_resurs r set r.state = '3' where r.id = iId_res; --Статусни "Подтвержден ГО" га узгартириш
+      update qqb_hl_resurs r set r.state = '3' where r.id = iId_res; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ" пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
       prot(iId_res         => vResRow.Id,
            iIzox           => vResRow.Izox,
            iState_id       => '2',
@@ -878,20 +878,21 @@ create or replace package body qqb_resurs_val is
     vOper_date := setup.get_operday;
     select t.* into vIdxInfRow from qqb_hl_index_info t where t.id = iId;
     select count(*)
-      into vCount
+      into vCount -- berilgan id qatorning nechta 'index_id'doshlari borligi topilayapti.
       from qqb_hl_index_info t
      where t.index_id = vIdxInfRow.Index_Id;
-    if vCount = 1 then
+    if vCount = 1 then -- agar qator yagona bo'lsa shu qatorning 'end_data' ustuni olinadi.
       select t.end_date
-        into vMax_date
+        into vMax_date -- 'end_data'ning qiymati 'vMax_date'ga yoziladi.
         from qqb_hl_index_info t
        where t.index_id = vIdxInfRow.Index_Id;
-      if (vMax_date < vOper_date) then
-        return 1;
+      if (vMax_date < vOper_date) then -- agar 'vMax_date' qiymati 'OperDay'dan kichik bo'lsa,
+        -- funksiya:
+        return 1; -- 1, ya'ni XATO
       else
-        return 0;
+        return 0; -- 0, ya'ni TO'G'RI qiymatini qaytaradi.
       end if;
-    elsif vCount > 1 then
+    elsif vCount > 1 then -- agar qatorlar soni 1 dan ko'p bo'lsa, eng qatorlardagi eng oxirgi 'end_date' ustuni olinadi.
       select max(t.end_date)
         into vMax_date
         from qqb_hl_index_info t
@@ -906,13 +907,13 @@ create or replace package body qqb_resurs_val is
       else
         return 0;
       end if;
-    else
-      return 0;
+    else -- (vCount < 1)
+      return 0; -- funksiya: 0, ya'ni XATO qiymatini qaytaradi.
     end if;
   
   end is_invalid_date;
 
-  --//хисоб ракам номини олиш
+  --//пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
   function Get_Sch_Name(iSch accounts.acc_external%type) return varchar2 is
     result         j_array := j_array();
     vCondition     accounts.condition%type;
@@ -930,7 +931,7 @@ create or replace package body qqb_resurs_val is
       into vCurrencyName
       from v_currency v
      where v.CODE = vCode_currency;
-    if vSchName <> 'Нет сведений' then
+    if vSchName <> 'пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ' then
       begin
         select 'X'
           into vCondition
@@ -940,9 +941,9 @@ create or replace package body qqb_resurs_val is
            and condition = 'A';
       exception
         when no_data_found then
-          vSchName := 'Счет не открытый';
+          vSchName := 'пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
         when others then
-          vSchName := 'Неизвестный счет коорспондента';
+          vSchName := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
       end;
     end if;
     result.push(vSchName);
@@ -972,7 +973,7 @@ create or replace package body qqb_resurs_val is
     result.push(vAcc);
     return result.to_string();
   end get_proc_acc;
-  --//депозит шартномаси номини олиш
+  --//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
   function Get_Dep_Name(iDep_id dep_contracts.id%type) return varchar2 is
     result j_array := j_array();
     vName  dep_contracts.contract_name%type;
@@ -984,7 +985,7 @@ create or replace package body qqb_resurs_val is
     result.push(vName);
     return result.to_string();
   end Get_Dep_Name;
-  --//депозит шартномаси номини олиш 2
+  --//пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ 2
   function Get_Dep_Name2(iDep_id dep_contracts.id%type) return varchar2 is
     vName dep_contracts.contract_name%type;
   begin
@@ -1065,7 +1066,7 @@ create or replace package body qqb_resurs_val is
   begin
   
     update qqb_hl_resurs a set a.state = '1' where a.id = iId_res;
-    prot(iId_res, 'Отправлен в ГО', 1, 1, sysdate);
+    prot(iId_res, 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ', 1, 1, sysdate);
   
   end;
 
@@ -1118,7 +1119,7 @@ create or replace package body qqb_resurs_val is
     else
       Raise_Application_Error(-20000,
                               iDep_contract_id ||
-                              ' Contract id графиги киритилган');
+                              ' Contract id пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
     end if;
     ---filial uchun grafik geranatsiya
     if chek_schedules_graph(IDep_filial_contract_id) is not null then
@@ -1144,7 +1145,7 @@ create or replace package body qqb_resurs_val is
     else
       Raise_Application_Error(-20000,
                               IDep_filial_contract_id ||
-                              ' Contract id графиги киритилган');
+                              ' Contract id пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
     end if;
   
   end;
@@ -1280,7 +1281,7 @@ create or replace package body qqb_resurs_val is
     when others then
       o_error := sqlerrm;
   end contract_action;
-  ----Утвердить: Dep_jur
+  ----пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: Dep_jur
   PROCEDURE contract_action_approve(IID_LIST IN ARRAY_VARCHAR2,
                                     OMESSAGE OUT VARCHAR2) IS
   BEGIN
@@ -1306,8 +1307,8 @@ create or replace package body qqb_resurs_val is
     v_dep_id_f          integer;
     v_error             varchar2(32767);
     v_action_resource   dep_s_action_resource.code%type;
-    v_account_layouts   dep_account_layouts.id%type; --Макеты счетов; Межфил. депозит 16102-840
-    v_deposit_type      dep_s_deposit_type.code%type; --Справочник типов вкладов; Межфилиальный депозит
+    v_account_layouts   dep_account_layouts.id%type; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
+    v_deposit_type      dep_s_deposit_type.code%type; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     v_contract_date     dep_contracts.contract_date%type := to_date(i_contract_date,
                                                                     'dd.mm.yyyy');
     v_date_end          dep_contracts.date_end%type;
@@ -1389,11 +1390,11 @@ begin
  exception when no_data_found then  
    begin
       if v_cl_code is null then
-        o_Message := 'Кредит бюртмасига мижоз уникал коди киритилмаган?!';
+        o_Message := 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?!';
         Raise_Application_Error(-20000, o_Message);
       end if;
       if v_loan_id is null then
-        o_Message := 'Кредит бюртмасига loan_id бириктирилмаган?!';
+        o_Message := 'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ loan_id пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?!';
         Raise_Application_Error(-20000, o_Message);
       end if;
       vEmpCode := setup.get_employee_code();
@@ -1428,23 +1429,23 @@ begin
           v_date_end := to_date(i_date_end, 'dd.mm.yyyy');
         end if;
         SELECT v_date_end - v_date_begin into v_count_days FROM dual;
-        -- Кредит Libor маржаси кушиб узгартирилади
-        -- Кредит Libor маржаси буйича хисоблашини аниклаш керак
+        -- пїЅпїЅпїЅпїЅпїЅпїЅ Libor пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        -- пїЅпїЅпїЅпїЅпїЅпїЅ Libor пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         /*        fozil_actions.ln_percent_update(iLoanId     => v_loan_id,
                                                 iTypeAction => 'NEW' );
         */
       
-        ----Shartnoma; Размещение
+        ----Shartnoma; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         setup.set_employee_code(vEmpHeaderCode);
         v_action_resource := 'PLACEMENT';
         if v_currency = '978' then
-          v_account_layouts := 74; --Макеты счетов; Межфил. депозит 16102-978
+          v_account_layouts := 74; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-978
         end if;
         if v_currency = '840' then
-          v_account_layouts := 63; --Макеты счетов; Межфил. депозит 16102-840
+          v_account_layouts := 63; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
         end if;
       
-        v_deposit_type := 4; --Справочник типов вкладов; Межфилиальный депозит
+        v_deposit_type := 4; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         contract_action(i_action_resource       => v_action_resource,
                         i_client_code           => lpad(v_mfo, 8, '0'),
                         i_contract_name         => i_contract_name,
@@ -1468,16 +1469,16 @@ begin
           o_Message := v_error;
           Raise_Application_Error(-20000, v_error);
         else
-          ----Shartnoma; Привлечение
+          ----Shartnoma; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           setup.set_employee_code(vEmpZvCode);
           v_action_resource := 'ATTRACT';
           if v_currency = '978' then
-            v_account_layouts := 76; --Макеты счетов; Межфил. депозит 16102-978
+            v_account_layouts := 76; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-978
           end if;
           if v_currency = '840' then
-            v_account_layouts := 62; --Макеты счетов; Межфил. депозит 16102-840
+            v_account_layouts := 62; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
           end if;
-          v_deposit_type := 4; --Справочник типов вкладов; Межфилиальный депозит
+          v_deposit_type := 4; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           contract_action(i_action_resource       => v_action_resource,
                           i_client_code           => '00001037',
                           i_contract_name         => i_contract_name,
@@ -1507,7 +1508,7 @@ begin
                             iDep_contract_id        => v_dep_id_b,
                             IDep_filial_contract_id => v_dep_id_f);
           
-            ---Деп Юр Лиц бириктириш
+            ---пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             update qqb_hl_resurs t
                set t.submanba_id = i_submanba_id,
                    t.dep_id_b    = v_dep_id_b,
@@ -1515,8 +1516,8 @@ begin
                    t.state       = 2
              where t.id = i_resurs_id;
             --Nazarov X.A 28.09.2020
-            --- Настройка режим работ
-            --Головной офис
+            --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             insert into dep_contracts_mode_actions
               (contract_id,
                mode_calc_percent,
@@ -1561,7 +1562,7 @@ begin
                'Y',
                'USUAL',
                'N');
-            --филиал
+            --пїЅпїЅпїЅпїЅпїЅпїЅ
             insert into dep_contracts_mode_actions
               (contract_id,
                mode_calc_percent,
@@ -1606,7 +1607,7 @@ begin
                'Y',
                'USUAL',
                'N');
-            --Счетлар бириктириш. йук булса очиб бириктириш
+            --пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             openBindAcc(v_mfo,
                         i_submanba_id,
                         v_dep_id_b,
@@ -1614,7 +1615,7 @@ begin
                         o_Message);
             -- Sherzodaka yozgan protokolni chaqirilgan
             qqb_resurs_val.prot(i_resurs_id,
-                                'Рухсат берилди',
+                                'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
                                 2,
                                 3,
                                 sysdate);
@@ -1622,9 +1623,9 @@ begin
           end if;
         end if;
       else
-        o_Message := 'Мижоз кредит системасига киритилмаган!!!';
+        o_Message := 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!';
         Raise_Application_Error(-20000,
-                                'Мижоз кредит системасига киритилмаган!!!');
+                                'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!!!');
       end if;
       setup.set_employee_code(vEmpCode);
    exception
@@ -1865,7 +1866,7 @@ end accept;
     v_code_coa      accounts.code_coa%type;
     v_foiz_code     accounts.code%type;
     f_foiz_code     accounts.code%type;
-    --типы счета
+    --пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
     vCurrCode       qqb_hl_spr_submanba.currency%type;
     vAccId_6        accounts.id%type;
     vAccId_11       accounts.id%type;
@@ -1924,7 +1925,7 @@ end accept;
       end if;
     exception
       when no_data_found then
-        oMessage := 'QQB_HL_ACCOUNTS таблицада шаблон топилмади?!';
+        oMessage := 'QQB_HL_ACCOUNTS пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?!';
         return;
     end;
     --Bosh bankda asosiy schet(16102)
@@ -1955,8 +1956,8 @@ end accept;
           tartibNo := substr(v_acc_res_bo, -3);
         end if;
         --schet nomi
-        select t.name || ' кредит линияси буйича ' || b.name ||
-               'га берилган ресурслар'
+        select t.name || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' || b.name ||
+               'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -1993,7 +1994,7 @@ end accept;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into v_acc_code, v_acc_external, v_id, v_code_coa
@@ -2082,8 +2083,8 @@ end accept;
           tartibNo := substr(v_acc_foiz_bo, -3);
         end if;
         --schet nomi
-        select t.name || ' кредит линияси буйича ' || b.name ||
-               'га берилган ресурсга хисоб.фоизлар'
+        select t.name || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' || b.name ||
+               'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.пїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -2120,7 +2121,7 @@ end accept;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into v_foiz_code, v_acc_external, v_id, v_code_coa
@@ -2182,7 +2183,7 @@ end accept;
       when others then
         null;
     end;
---Бош банкда ДЮЛ га 6, 11, 12 - тип счетларни бириктириш
+--пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ 6, 11, 12 - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 select s.currency
   into vCurrCode
   from QQB_HL_SPR_SUBMANBA s
@@ -2196,7 +2197,7 @@ elsif vCurrCode = '978' then
   vAccId_11 := '8345511';
   vAccId_12 := '8345510';
 end if;
--- 6-тип счет
+-- 6-пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 begin
   select a.code, a.acc_external, a.id, a.code_coa
     into v_acc_code, v_acc_external, v_id, v_code_coa
@@ -2253,7 +2254,7 @@ exception
   when others then
     null;
 end;
--- 11-тип счет
+-- 11-пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 begin
   select a.code, a.acc_external, a.id, a.code_coa
     into v_acc_code, v_acc_external, v_id, v_code_coa
@@ -2310,7 +2311,7 @@ exception
   when others then
     null;
 end;
--- 12-тип счет
+-- 12-пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 begin
   select a.code, a.acc_external, a.id, a.code_coa
     into v_acc_code, v_acc_external, v_id, v_code_coa
@@ -2376,7 +2377,7 @@ end;
          and a.acc_external = v_acc_res_fil;
     exception
       when no_data_found then
-        --филиалда da 22203 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ da 22203 ochish;
         setup.Set_Employee_Code(vCode_f);
         --tartib nomer
         if substr(v_acc_res_fil, -3) = '___' then
@@ -2396,7 +2397,7 @@ end;
         end if;
         --schet nomi
         select t.name ||
-               ' кредит линияси буйича бош банкдан олинган ресурслар'
+               ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t
          where t.id = iSubmanbaId;
@@ -2432,7 +2433,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_acc_code, v_acc_external, v_id, v_code_coa
@@ -2503,7 +2504,7 @@ end;
          and a.acc_external = v_acc_foiz_fil;
     exception
       when no_data_found then
-        --филиалда  22409 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  22409 ochish;
         setup.Set_Employee_Code(vCode_f);
         --tartib nomer
         if substr(v_acc_foiz_fil, -3) = '___' then
@@ -2522,8 +2523,8 @@ end;
           tartibNo := substr(v_acc_foiz_fil, -3);
         end if;
         --schet nomi
-        select t.name || ' кредит линияси буйича ' || b.name ||
-               'га берилган ресурсга хисоб.фоизлар '
+        select t.name || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' || b.name ||
+               'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.пїЅпїЅпїЅпїЅпїЅпїЅпїЅ '
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -2560,7 +2561,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_foiz_code, v_acc_external, v_id, v_code_coa
@@ -2623,7 +2624,7 @@ end;
         null;
     end;
     
-  --Filialda 5- тип счет (54904000)
+  --Filialda 5- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (54904000)
     begin
       select a.code, a.condition, a.id, a.code_coa
         into f_acc_code, v_acc_condition, v_id, v_code_coa
@@ -2635,12 +2636,12 @@ end;
          and substr(a.acc_external, -3) = '103';
     exception
       when no_data_found then
-        --филиалда da 54904 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ da 54904 ochish;
         setup.Set_Employee_Code(vCode_f);
         --tartib nomer
         tartibNo := '103';
         --schet nomi 
-        account_name:= 'ХТТБ ва ХТА ва бошка кредит линиялари хисобидан ажратилган ресурсларлари учун хисобланган фоизли харажатлар';
+        account_name:= 'пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
         --
         oAccountCode := '11' || setup.get_local_code || '54904000_' || filial_unqcode || tartibNo;
         begin
@@ -2670,7 +2671,7 @@ end;
             f_acc_code_5 := oAccountCode;
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_acc_code_5, v_acc_external, v_id, v_code_coa
@@ -2731,7 +2732,7 @@ end;
       when others then
         null;
     end;  
-  --Filialda 11- тип счет (17101000)
+  --Filialda 11- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (17101000)
     begin
       select a.code, a.condition, a.id, a.code_coa
         into f_acc_code, v_acc_condition, v_id, v_code_coa
@@ -2743,13 +2744,13 @@ end;
          and substr(a.acc_external, -3) = substr(v_acc_res_fil, -3);
     exception
       when no_data_found then
-        --филиалда da 17101 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ da 17101 ochish;
         setup.Set_Employee_Code(vCode_f);
         --tartib nomer
         tartibNo := substr(v_acc_res_fil, -3);
         --schet nomi
         select t.name ||
-               ' кредит линияси буйича бош банкдан олинган ресурслар'
+               ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t
          where t.id = iSubmanbaId;
@@ -2782,7 +2783,7 @@ end;
             f_acc_code_11 := oAccountCode;
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_acc_code_11, v_acc_external, v_id, v_code_coa
@@ -2843,7 +2844,7 @@ end;
       when others then
         null;
     end;
-    --Filialda 12- тип счет (17101840)
+    --Filialda 12- пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (17101840)
     begin
       select a.code, a.condition, a.id, a.code_coa
         into f_acc_code, v_acc_condition, v_id, v_code_coa
@@ -2855,13 +2856,13 @@ end;
          and substr(a.acc_external, -3) = substr(v_acc_res_fil, -3);
     exception
       when no_data_found then
-        --филиалда da 17101 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ da 17101 ochish;
         setup.Set_Employee_Code(vCode_f);
         --tartib nomer
         tartibNo := substr(v_acc_res_fil, -3);
         --schet nomi
         select t.name ||
-               ' кредит линияси буйича бош банкдан олинган ресурслар'
+               ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t
          where t.id = iSubmanbaId;
@@ -2894,7 +2895,7 @@ end;
             f_acc_code_12 := oAccountCode;
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_acc_code_12, v_acc_external, v_id, v_code_coa
@@ -2989,7 +2990,7 @@ end;
      from qqb_hl_spr_farmoyish f
     where f.far_date = vOperDay;
    exception when no_data_found then
-     Raise_Application_Error(-20000, 'Аввал '||vOperDay||' сана учун фармойиш киритинг!(Настройки -> Фармойишлар)');
+     Raise_Application_Error(-20000, 'пїЅпїЅпїЅпїЅпїЅ '||vOperDay||' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ -> пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)');
    end;
 --------------------------Fozil---------------------------------
     begin
@@ -3000,7 +3001,7 @@ end;
       if sql%found then
         if v_state <> 1 then
           Raise_Application_Error(-20000,
-                                  'Рухсат берилмаган!');
+                                  'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!');
         end if;
       end if;
     exception
@@ -3025,29 +3026,29 @@ end;
        where d.id = b_id;
     exception
       when no_data_found then
-        oMessage := 'Контракт топилмади';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
         return;
       when too_many_rows then
-        oMessage := 'Контракт бир нечта';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ';
         return;
       when others then
-        oMessage := 'Контрактни аниклашда хатолик';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
         return;
     end;
     --naznacheniya
     begin
-      select (select d.contract_name || 'га '
+      select (select d.contract_name || 'пїЅпїЅ '
                 from dep_contracts d
                where d.id = r.dep_id_b) ||
-             (select b.name || ' хорижий кредит линияси буйича '
+             (select b.name || ' пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ '
                 from qqb_hl_spr_submanba b
                where b.ID = r.submanba_id) ||
-              '№ ' ||vFarNumb ||' фармойишга асосан '||
-             (select d.count_days || ' кунга '
+              'пїЅ ' ||vFarNumb ||' пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ '||
+             (select d.count_days || ' пїЅпїЅпїЅпїЅпїЅ '
                 from dep_contracts d
                where d.id = r.dep_id_b) ||
-             (select 'йиллик ' || to_char(p.percent_rate) ||
-                     ' фоиз ставкада ажратилган ресур'
+             (select 'пїЅпїЅпїЅпїЅпїЅпїЅ ' || to_char(p.percent_rate) ||
+                     ' пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ'
                 from dep_contracts_percent_rate p
                where p.contract_id = r.dep_id_b
                  and p.percent_type = 'DEP'
@@ -3061,16 +3062,16 @@ end;
        where r.id = v_id_resurs;
     exception
       when no_data_found then
-        oMessage := 'Тулов максади топилмади';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ';
         return;
       when too_many_rows then
-        oMessage := 'Тулов максади бир нечта';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ';
         return;
       when others then
-        oMessage := 'Тулов максади  хато';
+        oMessage := 'пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅ';
         return;
     end;
-    --Бош банк счетини (16102) аниклаш
+    --пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (16102) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select d.filial_code, d.account_code, substr(d.account_code, -20)
         into b_mfo, b_sch, b_sch16102
@@ -3089,7 +3090,7 @@ end;
         oMessage := 'bosh bank sceti xato';
         return;
     end;
-    --филиал  счетини (22203) аниклаш
+    --пїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (22203) пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select d.filial_code, d.account_code, substr(d.account_code, -20)
         into f_mfo, f_sch, f_sch22203
@@ -3108,7 +3109,7 @@ end;
         oMessage := 'filail sceti xato';
         return;
     end;
-    --Бош банк бош бухгалтер коди ва унга сессия(проводка килиш учун керак)
+    --пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ(пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
     select setup.get_employee_code into vCode_o from dual;
     select p.code
       into vCode_b
@@ -3117,7 +3118,7 @@ end;
        and p.rank_code = 4
        and p.condition = 'A';
     setup.set_employee_code(vCode_b);
-    --v_ruxsat суммага ресурс чикариш ,яъни проводка килиш (дт: 16102 к-т 22203)
+    --v_ruxsat пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ,пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ: 16102 пїЅ-пїЅ 22203)
     iContracts    := array_varchar2();
     iParams_code  := array_varchar2();
     iParams_value := array_varchar2();
@@ -3148,7 +3149,7 @@ end;
     iParams_code  := sv_budjet_zp.add_in_array(iParams_code,
                                                'LEAD_FILIAL_NAME');
     iParams_value := sv_budjet_zp.add_in_array(iParams_value,
-                                               'ТОШКЕНТ Ш., АТБ "КИШЛОК КУРИЛИШ БАНК" БОШ АМАЛИЁТЛАР БОШКАРМАСИ');
+                                               'пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ., пїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ" пїЅпїЅпїЅ пїЅпїЅпїЅпїЅИЁпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
     iParams_code  := sv_budjet_zp.add_in_array(iParams_code, 'LEAD_INN');
     iParams_value := sv_budjet_zp.add_in_array(iParams_value,
                                                bank.get_inn_acc(f_sch));
@@ -3204,12 +3205,12 @@ end;
     v_dep_id_f          integer;
     v_error             varchar2(32767);
     v_action_resource   dep_s_action_resource.code%type;
-    v_account_layouts   dep_account_layouts.id%type; --Макеты счетов; Межфил. депозит 16102-840
-    v_deposit_type      dep_s_deposit_type.code%type; --Справочник типов вкладов; Межфилиальный депозит
+    v_account_layouts   dep_account_layouts.id%type; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
+    v_deposit_type      dep_s_deposit_type.code%type; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     v_contract_date     dep_contracts.contract_date%type;
     v_date_end          dep_contracts.date_end%type;
     v_currency_code     dep_contracts.currency_code%type;
-    v_desc_days_in_year DEP_s_DAYS_IN_YEAR.Code%type; --Справочник банковских дней;
+    v_desc_days_in_year DEP_s_DAYS_IN_YEAR.Code%type; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ;
   
     v_summa      dep_contracts.summa%type;
     v_cl_code    dep_contracts.client_code%type;
@@ -3277,16 +3278,16 @@ end;
            and a.private_post_id = 4
            and a.state = 'A';
       
-        ----Shartnoma; Размещение
+        ----Shartnoma; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         setup.set_employee_code(vEmpHeaderCode);
         v_action_resource := 'PLACEMENT';
         if v_currency_code = '978' then
-          v_account_layouts := 74; --Макеты счетов; Межфил. депозит 16102-978
+          v_account_layouts := 74; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-978
         end if;
         if v_currency_code = '840' then
-          v_account_layouts := 63; --Макеты счетов; Межфил. депозит 16102-840
+          v_account_layouts := 63; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
         end if;
-        v_deposit_type := 4; --Справочник типов вкладов; Межфилиальный депозит
+        v_deposit_type := 4; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         contract_action(i_action_resource => v_action_resource,
                         
                         i_client_code           => lpad(v_mfo, 8, '0'),
@@ -3311,16 +3312,16 @@ end;
           o_Message := v_error;
           Raise_Application_Error(-20000, v_error);
         else
-          ----Shartnoma; Привлечение
+          ----Shartnoma; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           setup.set_employee_code(vEmpZvCode);
           if v_currency_code = '978' then
-            v_account_layouts := 76; --Макеты счетов; Межфил. депозит 16102-978
+            v_account_layouts := 76; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-978
           end if;
           if v_currency_code = '840' then
-            v_account_layouts := 62; --Макеты счетов; Межфил. депозит 16102-840
+            v_account_layouts := 62; --пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 16102-840
           end if;
           v_action_resource := 'ATTRACT';
-          v_deposit_type    := 4; --Справочник типов вкладов; Межфилиальный депозит
+          v_deposit_type    := 4; --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ; пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
           contract_action(i_action_resource       => v_action_resource,
                           i_client_code           => '00001037',
                           i_contract_name         => i_contract_name,
@@ -3350,7 +3351,7 @@ end;
             iDep_contract_id        => v_dep_id_b,
             IDep_filial_contract_id => v_dep_id_f);*/
           
-            ---Деп Юр Лиц бириктириш
+            ---пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             update qqb_hl_resurs t
                set t.submanba_id = i_submanba_id,
                    t.dep_id_b    = v_dep_id_b,
@@ -3358,8 +3359,8 @@ end;
                    t.state       = 2
              where t.id = i_resurs_id;
             --Nazarov X.A 28.09.2020
-            --- Настройка режим работ
-            --Головной офис
+            --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             insert into dep_contracts_mode_actions
               (contract_id,
                mode_calc_percent,
@@ -3404,7 +3405,7 @@ end;
                'Y',
                'USUAL',
                'N');
-            --филиал
+            --пїЅпїЅпїЅпїЅпїЅпїЅ
             insert into dep_contracts_mode_actions
               (contract_id,
                mode_calc_percent,
@@ -3449,7 +3450,7 @@ end;
                'Y',
                'USUAL',
                'N');
-            --Счетлар бириктириш. йук булса очиб бириктириш
+            --пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             openBindAcc(v_mfo,
                         i_submanba_id,
                         v_dep_id_b,
@@ -3457,7 +3458,7 @@ end;
                         o_Message);
             -- Sherzodaka yozgan protokolni chaqirilgan
             qqb_resurs_val.prot(i_resurs_id,
-                                'Рухсат берилди',
+                                'пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ',
                                 2,
                                 3,
                                 sysdate);
@@ -3552,7 +3553,7 @@ end;
       end if;
     exception
       when no_data_found then
-        oMessage := 'QQB_HL_ACCOUNTS таблицада шаблон топилмади?!';
+        oMessage := 'QQB_HL_ACCOUNTS пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ?!';
         return;
     end;
     --Bosh bankda asosiy schet(16102)
@@ -3567,8 +3568,8 @@ end;
         --01037 da 16102 ochish;
         setup.Set_Employee_Code(vCode_b);
         --schet nomi
-        select substr(t.name, 1, 30) || ' кредит линияси буйича ' ||
-               substr(b.name, 1, 30) || 'га берилган ресурслар'
+        select substr(t.name, 1, 30) || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' ||
+               substr(b.name, 1, 30) || 'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -3601,7 +3602,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into v_acc_code, v_acc_external, v_id, v_code_coa
@@ -3674,9 +3675,9 @@ end;
         --01037 da 16304 ochish;
         setup.Set_Employee_Code(vCode_b);
         --schet nomi
-        select substr(t.name, 1, 30) || ' кредит линияси буйича ' ||
+        select substr(t.name, 1, 30) || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' ||
                substr(b.name, 1, 30) ||
-               'га берилган ресурсга хисоб.фоизлар '
+               'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.пїЅпїЅпїЅпїЅпїЅпїЅпїЅ '
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -3709,7 +3710,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into v_foiz_code, v_acc_external, v_id, v_code_coa
@@ -3780,11 +3781,11 @@ end;
          and a.acc_external = v_acc_res_fil;
     exception
       when no_data_found then
-        --филиалда da 22203 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ da 22203 ochish;
         setup.Set_Employee_Code(vCode_f);
         --schet nomi
         select substr(t.name, 1, 40) ||
-               ' кредит линияси буйича бош банкдан олинган  ресурслар'
+               ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ'
           into account_name
           from QQB_HL_SPR_SUBMANBA t
          where t.id = iSubmanbaId;
@@ -3816,7 +3817,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_acc_code, v_acc_external, v_id, v_code_coa
@@ -3886,12 +3887,12 @@ end;
          and a.acc_external = v_acc_foiz_fil;
     exception
       when no_data_found then
-        --филиалда  22409 ochish;
+        --пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  22409 ochish;
         setup.Set_Employee_Code(vCode_f);
         --schet nomi
-        select substr(t.name, 1, 30) || ' кредит линияси буйича ' ||
+        select substr(t.name, 1, 30) || ' пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ ' ||
                substr(b.name, 1, 30) ||
-               'га берилган ресурсга хисоб.фоизлар '
+               'пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ.пїЅпїЅпїЅпїЅпїЅпїЅпїЅ '
           into account_name
           from QQB_HL_SPR_SUBMANBA t, bank_desc_glb b
          where t.id = iSubmanbaId
@@ -3924,7 +3925,7 @@ end;
           
         end;
     end;
-    --ДЮЛ ва qqb_hl_accountsга Бириктириш
+    --пїЅпїЅпїЅ пїЅпїЅ qqb_hl_accountsпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     begin
       select a.code, a.acc_external, a.id, a.code_coa
         into f_foiz_code, v_acc_external, v_id, v_code_coa
