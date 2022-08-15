@@ -1054,6 +1054,8 @@ CREATE OR REPLACE PACKAGE BODY qqb_resurs_val IS
 		vMaxId     qqb_hl_index_info.id%TYPE;
 	BEGIN
 		vOper_date := setup.get_operday;
+		dbms_output.put_line(USER || ' Tables in the database:');
+	
 		SELECT t.*
 		  INTO vIdxInfRow
 		  FROM qqb_hl_index_info t
