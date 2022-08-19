@@ -1053,7 +1053,11 @@ CREATE OR REPLACE PACKAGE BODY qqb_resurs_val IS
 		vOper_date DATE;
 		vMaxId     qqb_hl_index_info.id%TYPE;
 	BEGIN
-		vOper_date := setup.get_operday;
+		-------------------------------------------
+		-- vOper_date := setup.get_operday;
+		-- vOper_date := to_date('24-FEB-2022');
+		vOper_date := to_date('19-AUG-2022');
+		-------------------------------------------
 		dbms_output.put_line(USER || ' Tables in the database:');
 	
 		SELECT t.*
