@@ -1056,7 +1056,7 @@ CREATE OR REPLACE PACKAGE BODY qqb_resurs_val IS
 		-------------------------------------------
 		-- vOper_date := setup.get_operday;
 		-- vOper_date := to_date('24-FEB-2022');
-		vOper_date := to_date('19-AUG-2022');
+		vOper_date := to_date('19-AUG-2022'); -- today
 		-------------------------------------------
 		dbms_output.put_line(USER || ' Tables in the database:');
 	
